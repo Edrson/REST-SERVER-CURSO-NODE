@@ -12,7 +12,7 @@ const dbConnection = async () => {
 
     } catch (error) {
         //console.log(error.message.red);
-        throw new Error('Error, traing of start db', error)
+        throw new Error('Error, traing of start db', error.message)
     }
 }
 module.exports = {
