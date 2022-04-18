@@ -6,10 +6,10 @@ const dbConnection = async () => {
     try {
         console.log('CNN>', process.env.MONGODB_CNN);
 
-        /* await mongoose.connect(process.env.MONGODB_CNN, {
-             useNewUrlParser: true,
-             useUnifiedTopology: true
-         });*/
+        await mongoose.connect(process.env.MONGODB_CNN, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
         console.log('Data base on line'.blue);
 
     } catch (error) {
