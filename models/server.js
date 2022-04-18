@@ -55,12 +55,7 @@ class Server {
     }
 
     async conectarDB() {
-        try {
-            await dbConnection();
-        } catch (error) {
-            // console.log(error.message);
-            throw new Error(error.message)
-        }
+        await dbConnection();
     }
 }
 module.exports = Server;
