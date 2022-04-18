@@ -13,7 +13,7 @@ const dbConnection = async () => {
         console.log('Data base on line'.blue);
 
     } catch (error) {
-        //console.log(error.message.red);
+        console.log('on CATCH', error.message);
         throw new Error('Error, traing of start db', error.message)
     }
 }
