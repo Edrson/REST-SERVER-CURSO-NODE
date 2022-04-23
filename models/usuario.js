@@ -33,11 +33,12 @@ const UsuarioSchema = Schema({
 });
 
 //^ El siguiente metodo quitará los objetos de mi schema que no quiero mostrar
-//^{-K nñb{}} utilizar el this dentro de la funcion y la funcion flecha mantiene el this fuera de la función
+//^ se hace funcion normal para utilizar el this dentro de la funcion y la funcion flecha mantiene el this fuera de la función
 UsuarioSchema.methods.toJSON = function () {
-    //^ estoy sacando versió y password de UsuarioSchema y estoy 
+    //^ estoy sacando versión y password de UsuarioSchema y estoy 
     //^ almacenando el resto en un objeto llamado usuario
-    const { __v, password, ...user } = this.toObject();
+    const { __v, password, _id, ...user } = this.toObject();
+    user.uid = _id;
     return user;
 }
 

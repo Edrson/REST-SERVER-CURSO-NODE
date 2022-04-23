@@ -21,7 +21,7 @@ const emailExiste = async (correo = '') => {
 }
 const existeUsuarioPorId = async (id = '') => {
     const existeUsuario = await Usuario.findById(id);
-    console.log('existeUsuario', existeUsuario);
+    //console.log('existeUsuario', existeUsuario);
     if (!existeUsuario) {
         throw new Error(`El  id ${id} no existe en la base de datos`)
         /*   return res.status(400).json({
@@ -30,8 +30,9 @@ const existeUsuarioPorId = async (id = '') => {
     }
 }
 
+
 module.exports = {
     esRoleValido,
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
 }

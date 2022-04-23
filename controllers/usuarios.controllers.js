@@ -91,13 +91,15 @@ const usuariosPost = async (req = request, res = response) => {
 const usuariosDelete = async (req = request, res = response) => {
     const { id } = req.params;
 
+    const uid = req.uid;//este es el objeto que se le agrego al req en el middleware validarJWT
     //Borrar fisicamente, esta forma no se recomienda ya que de sierta forma se pierde la integridad referencial.
     //const usuario = await Usuario.findByIdAndDelete(id);
 
     //Borrar atravez de actualización de un estado
     const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+    const usuarioAutenticado = req.usuario;
 
-    res.json(usuario);
+    res.json({ usuario });
 }
 const usuariosPatch = (req = request, res = response) => {
     res.json({

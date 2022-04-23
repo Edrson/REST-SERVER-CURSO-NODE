@@ -16,6 +16,7 @@ class Server {
             this.app = express();
             this.PORT = process.env.PORT;
             // Podemos definir la ruta para el API de usuarios!! :)
+            this.authPath = '/api/auth'
             this.usuariosPath = '/api/usuarios'
 
             // Conectar a base de datos
@@ -35,6 +36,7 @@ class Server {
     routes() {
         // cuando pase una solicitud por esta ruta (this.usuariosPath) entonces aqui lo voy a cargar(es 
         // como un middleware condicional...) cargar o mandar a llamar usuarios.routes por medio de require...
+        this.app.use(this.authPath, require('../routes/auth.routes'));
         this.app.use(this.usuariosPath, require('../routes/usuarios.routes'));
     }
     listen() {

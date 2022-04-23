@@ -1,8 +1,20 @@
 //*Podemos definir este archivo, por ejemplo para que sean las rutas de los usuarios, por decir algo.
 
 const { check } = require('express-validator');
+// desestructurar la funcion Router de express
+const { Router } = require('express');
 require('colors');
-const { validarCampos } = require('../middlewares/validar-campos')
+
+//? todas estas importaciones que vienen de la misma carpeta middlewares se puede optimizar******
+/* const { validarCampos } = require('../middlewares/validar-campos')
+const { validarJWT } = require('../middlewares/validar-jwt');
+const { esAdminRole, tieneRole } = require('../middlewares/validar-roles'); */
+//? *********************************************************************************************
+
+//? y se optimizan de la siguiente forma ********************************************************
+const { validarCampos, validarJWT, esAdminRole, tieneRole } = require('../middlewares/index');
+//? *********************************************************************************************
+
 const { esRoleValido, emailExiste, existeUsuarioPorId } = require('../helpers/db-validators')
 //const Role = require('../models/role')
 
@@ -12,8 +24,6 @@ const { usuariosGet,
     usuariosPost,
     usuariosPut } = require('../controllers/usuarios.controllers');
 
-// desestructurar la funcion Router de express
-const { Router } = require('express');
 
 const router = Router();
 
@@ -45,7 +55,11 @@ router.post('/', [
     validarCampos,
 
 ], usuariosPost);
+
 router.delete('/:id', [
+    validarJWT,
+    //esAdminRole,
+    tieneRole('ADMIN_ROLE', 'VENTAS_ROLE'),//este middleware nuestro es distinto ya que recibe argumentos, es especial dentro de el se tiene que retornar una función...
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom((id = '') => existeUsuarioPorId(id)),
     validarCampos,
